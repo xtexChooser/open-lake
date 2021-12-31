@@ -1,0 +1,15 @@
+{
+  "type": "open-lakejason:archive",
+  "generator": {
+    "type": "open-lakejason:archive",
+    "biome_source": {
+      "type": "open-lakejason:archive",
+      "seed": -671099287
+    },
+    "structures": {
+      "structures": {
+      }
+    },
+    "seed": -671099287
+  }
+}

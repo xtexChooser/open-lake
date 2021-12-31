@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "open-lakejason",
+  "name": "Open Lakejason",
+  "version": "${version}",
+  "description": "A series of open source distributed LakeJason implementations.",
+  "license": "GPL-3.0",
+  "authors": [
+    "xtexChooser"
+  ],
+  "contact": {
+    "homepage": "https://xtexx.ml/",
+    "sources": "https://github.com/xtexChooser/open-lakejason"
+  },
+  "icon": "assets/open-lakejason/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.xtex.openlakejason.OpenLake"
+    ],
+    "client": [
+      "com.xtex.openlakejason.OpenLake"
+    ],
+    "modmenu": [
+      "com.xtex.openlakejason.integrate.ModMenu"
+    ]
+  },
+  "mixins": [
+    "open-lakejason.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.11.3",
+    "fabric": "*",
+    "minecraft": "1.18.x",
+    "java": ">=17"
+  },
+  "suggests": {
+    "modmenu": "*"
+  }
+}
