@@ -1,7 +1,9 @@
 package com.xtex.openlake.archive.dimension;
 
 import com.mojang.serialization.Codec;
+import com.xtex.openlake.OpenLake;
 import com.xtex.openlake.archive.block.ArchiveWorldGateBlock;
+import com.xtex.openlake.archive.entity.large_lake.LargeLakeEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -85,12 +87,19 @@ public class ArchiveChunkGenerator extends ChunkGenerator {
     public void buildSurface(ChunkRegion region, StructureAccessor structures, Chunk chunk) {
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void populateEntities(ChunkRegion region) {
         var pos = region.getCenterPos();
         var random = new ChunkRandom(new Xoroshiro128PlusPlusRandom(seed));
         random.setPopulationSeed(region.getSeed(), pos.getStartX(), pos.getStartZ());
         SpawnHelper.populateEntities(region, region.getBiome(pos.getStartPos()), pos, random);
+        if (region.getCenterPos().x == 0 && region.getCenterPos().z == 0) {
+            OpenLake.LOGGER.info("Spawning large lake in {}", region.getCenterPos());
+            var entity = new LargeLakeEntity(LargeLakeEntity.TYPE, region.toServerWorld());
+            entity.setPosition(5, 50, 5);
+            region.toServerWorld().spawnEntity(entity);
+        }
     }
 
     @Override

@@ -35,7 +35,7 @@ public class LargeLakeEntity extends PathAwareEntity {
     @Nullable
     public ServerBossBar serverBossBar = null;
 
-    protected LargeLakeEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
+    public LargeLakeEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
         super(entityType, world);
         if (!world.isClient) {
             serverBossBar = new ServerBossBar(getName(), BossBar.Color.BLUE, BossBar.Style.PROGRESS);
