@@ -1,0 +1,11 @@
+{
+  "entity.open-lake.lakejason": "LakeJason",
+  "entity.open-lake.large_lake": "糊人",
+  "item.open-lake.lakejason_egg": "LakeJason刷怪蛋",
+  "itemGroup.open-lake.item_group": "OpenLake",
+  "openlake.config": "配置",
+  "openlake.config.devtools": "开发者工具",
+  "openlake.config.general": "通用",
+  "openlake.config.general.easter_eggs": "启用节日彩蛋",
+  "openlake.config.general.slim": "使用纤细模型"
+}

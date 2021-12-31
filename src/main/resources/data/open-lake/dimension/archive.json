@@ -1,0 +1,15 @@
+{
+  "type": "open-lake:archive",
+  "generator": {
+    "type": "open-lake:archive",
+    "biome_source": {
+      "type": "open-lake:archive",
+      "seed": -671099287
+    },
+    "structures": {
+      "structures": {
+      }
+    },
+    "seed": -671099287
+  }
+}
