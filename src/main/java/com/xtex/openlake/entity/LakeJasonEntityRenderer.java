@@ -30,7 +30,7 @@ public class LakeJasonEntityRenderer extends MobEntityRenderer<LakeJasonEntity, 
 
     @Override
     public Identifier getTexture(LakeJasonEntity entity) {
-        return OpenLake.id("skin/v" + (1 + (int) (Math.random() * 5)) + ".png");
+        return OpenLake.id("skin/v5.png");
     }
 
 }

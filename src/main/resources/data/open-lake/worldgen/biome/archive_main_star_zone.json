@@ -12,7 +12,7 @@
     "foliage_color": 8243702
   },
   "spawners": {
-    "ambient": [
+    "creature": [
       {
         "type": "open-lake:lakejason",
         "weight": 1,
