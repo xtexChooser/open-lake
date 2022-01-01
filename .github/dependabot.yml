@@ -4,6 +4,9 @@ updates:
     directory: "/"
     schedule:
       interval: daily
+    ignore:
+      - dependency-name: "fabric-loom"
+      - dependency-name: "net.fabricmc.fabric-api:fabric-api"
 
   - package-ecosystem: github-actions
     directory: "/"
