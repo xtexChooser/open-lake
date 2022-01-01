@@ -1,4 +1,7 @@
 {
+  "atttribute.open-lake.archive_teleport_x": "存档世界传送门返回坐标X",
+  "atttribute.open-lake.archive_teleport_y": "存档世界传送门返回坐标Y",
+  "atttribute.open-lake.archive_teleport_z": "存档世界传送门返回坐标Z",
   "block.open-lake.archive_world_gate": "存档世界传送门",
   "entity.open-lake.lakejason": "LakeJason",
   "entity.open-lake.large_lake": "糊人",

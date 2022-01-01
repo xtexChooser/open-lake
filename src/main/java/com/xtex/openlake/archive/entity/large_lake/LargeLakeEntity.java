@@ -24,14 +24,24 @@ import org.jetbrains.annotations.Nullable;
 
 public class LargeLakeEntity extends PathAwareEntity {
 
-    public static final Identifier ID = OpenLake.id("large_lake");
-    public static final EntityType<LargeLakeEntity> TYPE = Registry.register(Registry.ENTITY_TYPE, ID,
-            FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, LargeLakeEntity::new)
+    public static final Identifier IDENTIFIER = OpenLake.id("large_lake");
+    public static final EntityType<LargeLakeEntity> TYPE = FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, LargeLakeEntity::new)
                     .dimensions(EntityDimensions.changing(3.7f, 8f))
                     .fireImmune()
                     .trackRangeChunks(10)
-                    .build());
+                    .build();
     public static final Identifier TEXTURE = OpenLake.id("skin/v5.png");
+
+    public static void init() {
+        Registry.register(Registry.ENTITY_TYPE, IDENTIFIER, TYPE);
+        //noinspection ConstantConditions
+        FabricDefaultAttributeRegistry.register(TYPE, createMobAttributes());
+    }
+
+    public static void initClient() {
+        EntityRendererRegistry.register(TYPE, LargeLakeEntityRenderer::new);
+    }
+
     @Nullable
     public ServerBossBar serverBossBar = null;
 
@@ -42,15 +52,6 @@ public class LargeLakeEntity extends PathAwareEntity {
             serverBossBar.setDarkenSky(true);
             serverBossBar.setThickenFog(true);
         }
-    }
-
-    public static void init() {
-        //noinspection ConstantConditions
-        FabricDefaultAttributeRegistry.register(TYPE, createMobAttributes());
-    }
-
-    public static void initClient() {
-        EntityRendererRegistry.register(TYPE, LargeLakeEntityRenderer::new);
     }
 
     public static DefaultAttributeContainer.Builder createMobAttributes() {
