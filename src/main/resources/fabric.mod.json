@@ -28,6 +28,7 @@
   "mixins": [
     "open-lake.mixins.json"
   ],
+  "accessWidener" : "open-lake.accesswidener",
   "depends": {
     "fabricloader": ">=0.11.3",
     "fabric": "*",

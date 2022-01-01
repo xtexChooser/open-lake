@@ -5,6 +5,7 @@ import com.xtex.openlake.archive.block.ArchiveWorldGateBlock;
 import com.xtex.openlake.archive.dimension.ArchiveBiomeSource;
 import com.xtex.openlake.archive.dimension.ArchiveChunkGenerator;
 import com.xtex.openlake.archive.entity.large_lake.LargeLakeEntity;
+import com.xtex.openlake.archive.item.RetreatSwordItem;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
@@ -23,11 +24,15 @@ public class Archive {
         ArchiveChunkGenerator.init();
         // Block
         ArchiveWorldGateBlock.init();
+        // Item
+        RetreatSwordItem.init();
         // Entity
         LargeLakeEntity.init();
     }
 
     public static void initClient() {
+        // Item
+        RetreatSwordItem.initClient();
         // Entity
         LargeLakeEntity.initClient();
     }
