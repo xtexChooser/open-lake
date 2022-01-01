@@ -1,14 +1,17 @@
 package com.xtex.openlake.archive.dimension;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.xtex.openlake.OpenLake;
 import com.xtex.openlake.archive.block.ArchiveWorldGateBlock;
 import com.xtex.openlake.archive.entity.large_lake.LargeLakeEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.noise.SimplexNoiseSampler;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.ChunkRegion;
 import net.minecraft.world.HeightLimitView;
 import net.minecraft.world.Heightmap;
@@ -34,7 +37,20 @@ import java.util.concurrent.Executor;
 
 public class ArchiveChunkGenerator extends ChunkGenerator {
 
-    public static final Codec<ArchiveChunkGenerator> CODEC = ArchiveDimension.CHUNK_GENERATOR_CODEC;
+    public static final Identifier IDENTIFIER = OpenLake.id("archive");
+    public static final Codec<ArchiveChunkGenerator> CODEC = RecordCodecBuilder.create(instance ->
+            instance.group(ArchiveBiomeSource.CODEC.fieldOf("biome_source")
+                                    .forGetter(it -> (ArchiveBiomeSource) it.getBiomeSource()),
+                            StructuresConfig.CODEC.fieldOf("structures")
+                                    .forGetter(ChunkGenerator::getStructuresConfig),
+                            Codec.LONG.fieldOf("seed")
+                                    .stable()
+                                    .forGetter(it -> it.seed))
+                    .apply(instance, instance.stable(ArchiveChunkGenerator::new)));
+
+    public static void init() {
+        Registry.register(Registry.CHUNK_GENERATOR, IDENTIFIER, CODEC);
+    }
 
     public final long seed;
     public final Biome noneBiome;
@@ -44,9 +60,9 @@ public class ArchiveChunkGenerator extends ChunkGenerator {
     public final SimplexNoiseSampler bottomNoise;
 
     public ArchiveChunkGenerator(ArchiveBiomeSource biomeSource, StructuresConfig structuresConfig, long seed) {
-        this(biomeSource, structuresConfig, seed, biomeSource.biomeRegistry.getOrThrow(ArchiveDimension.BIOME_NONE_REGISTRY_KEY),
-                biomeSource.biomeRegistry.getOrThrow(ArchiveDimension.BIOME_CENTER_LAND_REGISTRY_KEY),
-                biomeSource.biomeRegistry.getOrThrow(ArchiveDimension.BIOME_MAIN_STAR_ZONE_REGISTRY_KEY));
+        this(biomeSource, structuresConfig, seed, biomeSource.biomeRegistry.getOrThrow(ArchiveBiomes.NONE_REGISTRY_KEY),
+                biomeSource.biomeRegistry.getOrThrow(ArchiveBiomes.CENTER_LAND_REGISTRY_KEY),
+                biomeSource.biomeRegistry.getOrThrow(ArchiveBiomes.MAIN_STAR_ZONE_REGISTRY_KEY));
     }
 
     public ArchiveChunkGenerator(BiomeSource biomeSource, StructuresConfig structuresConfig, long seed, Biome noneBiome,
@@ -119,6 +135,7 @@ public class ArchiveChunkGenerator extends ChunkGenerator {
             }
             // Spawn point chunk
             if (chunk.getPos().x == 0 && chunk.getPos().z == 0) {
+                OpenLake.LOGGER.info("Generating archive world gate block for center land");
                 chunk.setBlockState(new BlockPos(0, 42, 0), ArchiveWorldGateBlock.BLOCK.getDefaultState(), false);
             }
             return chunk;

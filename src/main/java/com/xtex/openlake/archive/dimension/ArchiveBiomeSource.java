@@ -2,6 +2,10 @@ package com.xtex.openlake.archive.dimension;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.xtex.openlake.OpenLake;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.dynamic.RegistryLookupCodec;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.noise.SimplexNoiseSampler;
 import net.minecraft.util.registry.Registry;
@@ -14,7 +18,18 @@ import net.minecraft.world.gen.random.ChunkRandom;
 
 public class ArchiveBiomeSource extends BiomeSource {
 
-    public static final Codec<ArchiveBiomeSource> CODEC = ArchiveDimension.BIOME_SOURCE_CODEC;
+    public static final Identifier IDENTIFIER = OpenLake.id("archive");
+    public static final Codec<ArchiveBiomeSource> CODEC = RecordCodecBuilder.create(instance ->
+            instance.group(RegistryLookupCodec.of(Registry.BIOME_KEY)
+                                    .forGetter(it -> it.biomeRegistry),
+                            Codec.LONG.fieldOf("seed")
+                                    .stable()
+                                    .forGetter(it -> it.seed))
+                    .apply(instance, instance.stable(ArchiveBiomeSource::new)));
+
+    public static void init() {
+        Registry.register(Registry.BIOME_SOURCE, IDENTIFIER, CODEC);
+    }
 
     public final long seed;
     public final SimplexNoiseSampler noise;
@@ -24,9 +39,9 @@ public class ArchiveBiomeSource extends BiomeSource {
     public final Biome mainStarZoneBiome;
 
     protected ArchiveBiomeSource(Registry<Biome> biomeRegistry, long seed) {
-        this(biomeRegistry, seed, biomeRegistry.getOrThrow(ArchiveDimension.BIOME_NONE_REGISTRY_KEY),
-                biomeRegistry.getOrThrow(ArchiveDimension.BIOME_CENTER_LAND_REGISTRY_KEY),
-                biomeRegistry.getOrThrow(ArchiveDimension.BIOME_MAIN_STAR_ZONE_REGISTRY_KEY));
+        this(biomeRegistry, seed, biomeRegistry.getOrThrow(ArchiveBiomes.NONE_REGISTRY_KEY),
+                biomeRegistry.getOrThrow(ArchiveBiomes.CENTER_LAND_REGISTRY_KEY),
+                biomeRegistry.getOrThrow(ArchiveBiomes.MAIN_STAR_ZONE_REGISTRY_KEY));
     }
 
     protected ArchiveBiomeSource(Registry<Biome> biomeRegistry, long seed, Biome noneBiome, Biome centerLandBiome, Biome mainStarZoneBiome) {

@@ -1,7 +1,7 @@
 package com.xtex.openlake.archive.block;
 
 import com.xtex.openlake.OpenLake;
-import com.xtex.openlake.archive.dimension.ArchiveDimension;
+import com.xtex.openlake.archive.Archive;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -53,7 +53,7 @@ public class ArchiveWorldGateBlock extends Block {
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (!player.world.isClient && checkPower((ServerWorld) world, pos)) {
-            var isInArchive = ArchiveDimension.isArchiveDimension((ServerWorld) world);
+            var isInArchive = Archive.isArchiveDimension((ServerWorld) world);
             var server = Objects.requireNonNull(player.getServer());
             if (isInArchive) {
                 if (!player.getAttributes().hasAttribute(ATTRIBUTE_TELEPORT_X) || !player.getAttributes().hasAttribute(ATTRIBUTE_TELEPORT_Y)
@@ -68,7 +68,7 @@ public class ArchiveWorldGateBlock extends Block {
                 Objects.requireNonNull(player.getAttributes().getCustomInstance(ATTRIBUTE_TELEPORT_X)).setBaseValue(player.getX());
                 Objects.requireNonNull(player.getAttributes().getCustomInstance(ATTRIBUTE_TELEPORT_Y)).setBaseValue(player.getY());
                 Objects.requireNonNull(player.getAttributes().getCustomInstance(ATTRIBUTE_TELEPORT_Z)).setBaseValue(player.getZ());
-                ((ServerPlayerEntity) player).teleport(server.getWorld(ArchiveDimension.WORLD_REGISTRY_KEY), 0.5f, 43f, 0.5f,
+                ((ServerPlayerEntity) player).teleport(server.getWorld(Archive.WORLD_REGISTRY_KEY), 0.5f, 43f, 0.5f,
                         player.getYaw() + (OpenLake.shouldEnableEasterEgg(3) ? 16 : 0), player.getPitch());
             }
         }
@@ -76,7 +76,7 @@ public class ArchiveWorldGateBlock extends Block {
     }
 
     public static boolean checkPower(ServerWorld world, BlockPos pos) {
-        if (ArchiveDimension.isArchiveDimension(world))
+        if (Archive.isArchiveDimension(world))
             return true;
         return true; // @TODO
     }
