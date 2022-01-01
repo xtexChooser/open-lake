@@ -2,6 +2,7 @@ package com.xtex.openlake.archive.block;
 
 import com.xtex.openlake.OpenLake;
 import com.xtex.openlake.archive.Archive;
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -10,11 +11,13 @@ import net.minecraft.block.Material;
 import net.minecraft.entity.attribute.ClampedEntityAttribute;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.BlockItem;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Rarity;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
@@ -29,6 +32,9 @@ public class ArchiveWorldGateBlock extends Block {
 
     public static final Identifier IDENTIFIER = id("archive_world_gate");
     public static final ArchiveWorldGateBlock BLOCK = new ArchiveWorldGateBlock();
+    public static final BlockItem ITEM = new BlockItem(BLOCK, new FabricItemSettings()
+            .group(OpenLake.ITEM_GROUP)
+            .rarity(Rarity.RARE));
 
     public static final Identifier ATTRIBUTE_TELEPORT_X_IDENTIFIER = id("archive.teleport.x");
     public static final EntityAttribute ATTRIBUTE_TELEPORT_X = new ClampedEntityAttribute("atttribute.open-lake.archive_teleport_x", 0.0f, Integer.MIN_VALUE, Integer.MAX_VALUE);
@@ -39,6 +45,7 @@ public class ArchiveWorldGateBlock extends Block {
 
     public static void init() {
         Registry.register(Registry.BLOCK, IDENTIFIER, BLOCK);
+        Registry.register(Registry.ITEM, IDENTIFIER, ITEM);
         Registry.register(Registry.ATTRIBUTE, ATTRIBUTE_TELEPORT_X_IDENTIFIER, ATTRIBUTE_TELEPORT_X);
         Registry.register(Registry.ATTRIBUTE, ATTRIBUTE_TELEPORT_Y_IDENTIFIER, ATTRIBUTE_TELEPORT_Y);
         Registry.register(Registry.ATTRIBUTE, ATTRIBUTE_TELEPORT_Z_IDENTIFIER, ATTRIBUTE_TELEPORT_Z);

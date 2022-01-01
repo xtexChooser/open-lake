@@ -2,6 +2,7 @@ package com.xtex.openlake.entity;
 
 import com.xtex.openlake.OpenLake;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.EntityDimensions;
@@ -33,7 +34,7 @@ public class LakeJasonEntity extends PathAwareEntity {
     public static final Identifier SPAWN_EGG_ID = OpenLake.id("lakejason_egg");
     public static final SpawnEggItem SPAWN_EGG_ITEM = Registry.register(Registry.ITEM, SPAWN_EGG_ID, new SpawnEggItem(
             LakeJasonEntity.TYPE, 0x5492e3, 0x0088fe,
-            new Item.Settings()
+            new FabricItemSettings()
                     .group(OpenLake.ITEM_GROUP)
                     .fireproof()));
 

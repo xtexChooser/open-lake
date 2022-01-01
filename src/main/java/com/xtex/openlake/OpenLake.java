@@ -1,6 +1,7 @@
 package com.xtex.openlake;
 
 import com.xtex.openlake.archive.Archive;
+import com.xtex.openlake.archive.block.ArchiveWorldGateBlock;
 import com.xtex.openlake.config.OpenLakeConfig;
 import com.xtex.openlake.entity.LakeJasonEntity;
 import net.fabricmc.api.ClientModInitializer;
@@ -25,8 +26,9 @@ public final class OpenLake implements ModInitializer, ClientModInitializer {
     public static final boolean CAN_EASTER_EGG = (TODAY_DAY % 8) == 0;
     @Range(from = 0, to = 3)
     public static final int EASTER_EGG_SEED = (TODAY_DAY / 8) % 4;
+
     public static final ItemGroup ITEM_GROUP = FabricItemGroupBuilder.create(id("item_group"))
-            .icon(() -> new ItemStack(LakeJasonEntity.SPAWN_EGG_ITEM, shouldEnableEasterEgg(2) ? 18 : 1))
+            .icon(() -> new ItemStack(ArchiveWorldGateBlock.ITEM, shouldEnableEasterEgg(2) ? 18 : 1))
             .build();
 
     static {
