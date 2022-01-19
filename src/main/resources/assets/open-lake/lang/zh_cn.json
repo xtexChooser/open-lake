@@ -3,6 +3,7 @@
   "atttribute.open-lake.archive_teleport_y": "存档世界传送门返回坐标Y",
   "atttribute.open-lake.archive_teleport_z": "存档世界传送门返回坐标Z",
   "block.open-lake.archive_world_gate": "存档世界传送门",
+  "effect.open-lake.low_key": "低调",
   "entity.open-lake.lakejason": "湖远星",
   "entity.open-lake.large_lake": "糊人",
   "item.open-lake.lakejason_egg": "湖远星刷怪蛋",

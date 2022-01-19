@@ -2,6 +2,7 @@ package com.xtex.openlake.archive.item;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.xtex.openlake.OpenLake;
+import com.xtex.openlake.archive.effect.LowKeyEffect;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
@@ -18,11 +19,9 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.registry.Registry;
 
-import static com.xtex.openlake.OpenLake.id;
-
 public class RetreatSwordItem extends SwordItem {
 
-    public static final Identifier IDENTIFIER = id("retreat_sword");
+    public static final Identifier IDENTIFIER = OpenLake.id("retreat_sword");
     public static final RetreatSwordItem ITEM = new RetreatSwordItem();
 
     @Environment(EnvType.CLIENT)
@@ -45,11 +44,13 @@ public class RetreatSwordItem extends SwordItem {
 
     @Environment(EnvType.CLIENT)
     public static void onHudRender(MatrixStack matrixStack, float tickDelta) {
-        assert MinecraftClient.getInstance().player != null;
+        var player = MinecraftClient.getInstance().player;
+        assert player != null;
         for (Hand hand : Hand.values()) {
-            if (MinecraftClient.getInstance().player.getStackInHand(hand).getItem() == ITEM) {
+            if (player.getStackInHand(hand).getItem() == ITEM && !player.hasStatusEffect(LowKeyEffect.EFFECT)) {
                 matrixStack.push();
-                matrixStack.scale(1.5f, 1.5f, 1.5f);
+                matrixStack.scale(1.5f, 1.5f, 1.0f);
+                matrixStack.translate(tickDelta * (RENDER_STATE ? 2 : -2), tickDelta, 0);
                 RenderSystem.setShader(GameRenderer::getPositionColorShader);
                 RenderSystem.setShaderTexture(0, DrawableHelper.GUI_ICONS_TEXTURE);
                 var width = MinecraftClient.getInstance().getWindow().getScaledWidth() / 9 / 3 * 2 + 2;

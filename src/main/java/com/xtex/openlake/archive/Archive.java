@@ -4,6 +4,7 @@ import com.xtex.openlake.OpenLake;
 import com.xtex.openlake.archive.block.ArchiveWorldGateBlock;
 import com.xtex.openlake.archive.dimension.ArchiveBiomeSource;
 import com.xtex.openlake.archive.dimension.ArchiveChunkGenerator;
+import com.xtex.openlake.archive.effect.LowKeyEffect;
 import com.xtex.openlake.archive.entity.large_lake.LargeLakeEntity;
 import com.xtex.openlake.archive.item.RetreatSwordItem;
 import net.minecraft.server.world.ServerWorld;
@@ -26,6 +27,8 @@ public class Archive {
         ArchiveWorldGateBlock.init();
         // Item
         RetreatSwordItem.init();
+        // Effect
+        LowKeyEffect.init();
         // Entity
         LargeLakeEntity.init();
     }
