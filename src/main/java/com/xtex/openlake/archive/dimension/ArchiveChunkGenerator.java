@@ -29,7 +29,7 @@ import net.minecraft.world.gen.chunk.StructuresConfig;
 import net.minecraft.world.gen.chunk.VerticalBlockSample;
 import net.minecraft.world.gen.random.ChunkRandom;
 import net.minecraft.world.gen.random.Xoroshiro128PlusPlusRandom;
-import org.spongepowered.noise.module.Module;
+import org.spongepowered.noise.module.NoiseModule;
 import org.spongepowered.noise.module.source.Spheres;
 
 import java.util.concurrent.CompletableFuture;
@@ -56,7 +56,7 @@ public class ArchiveChunkGenerator extends ChunkGenerator {
     public final Biome noneBiome;
     public final Biome centerLandBiome;
     public final Biome mainStarZoneBiome;
-    public final Module heightNoise;
+    public final NoiseModule heightNoise;
     public final SimplexNoiseSampler bottomNoise;
 
     public ArchiveChunkGenerator(ArchiveBiomeSource biomeSource, StructuresConfig structuresConfig, long seed) {
