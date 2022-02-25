@@ -212,7 +212,7 @@ public class ArchiveChunkGenerator extends ChunkGenerator {
             return (int) (getSeaLevel() * (0.5f + 0.4f * (distance / (65 * 65))));
         } else { // Border
             if (((int) distance & 0b1) == 0) {
-                return (int) (getSeaLevel() * heightNoise.getValue(pos.x, pos.y, 2f));
+                return (int) (getSeaLevel() * heightNoise.get(pos.x, pos.y, 2f));
             } else {
                 return 0;
             }
@@ -230,7 +230,7 @@ public class ArchiveChunkGenerator extends ChunkGenerator {
     }
 
     public int getMainStarZoneSurfaceBaseHeight(int areaX, int areaZ) {
-        return (int) (getSeaLevel() * (0.9f + 0.2 * heightNoise.getValue(areaX, seed & 0b1111, areaZ)));
+        return (int) (getSeaLevel() * (0.9f + 0.2 * heightNoise.get(areaX, seed & 0b1111, areaZ)));
     }
 
     public int getBottomHeight(int surfaceHeight, Vec2f pos) {
